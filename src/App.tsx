@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
 import './App.css';
+import { Pokemon } from './types/Pokemons';
+
+import SearchBar from './components/SearchBar/SearchBar';
+import { fetchPokemonList } from './api/fetchPokemonList';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [pokemonData, setPokemonData] = useState<Pokemon>();
+    const [pokemonList, setPokemonList] = useState<Pokemon[]>();
+    const [error, setError] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(false);
+
+    useEffect(() => {
+        (async () => {
+            setLoading(true);
+            setPokemonList(await fetchPokemonList(9));
+            setLoading(false);
+        })();
+    }, []);
+
+    return <SearchBar setPokemonList={setPokemonList} setError={setError} setLoading={setLoading} />;
 }
 
 export default App;
