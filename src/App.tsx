@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import './App.css';
 import { Pokemon } from './types/Pokemons';
 
@@ -10,6 +10,11 @@ function App() {
     const [pokemonList, setPokemonList] = useState<Pokemon[]>();
     const [error, setError] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
+    const [page, setPage] = useState(1);
+    const [showPagination, setShowPagination] = useState(true);
+    const [disabledButton, setDisabledButton] = useState(false);
+
+    const searchBarRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         (async () => {
@@ -19,7 +24,22 @@ function App() {
         })();
     }, []);
 
-    return <SearchBar setPokemonList={setPokemonList} setError={setError} setLoading={setLoading} />;
+    useEffect(() => {
+        setError(false);
+    }, [pokemonList]);
+
+    return (
+        <SearchBar
+            setPokemonList={setPokemonList}
+            setError={setError}
+            setLoading={setLoading}
+            setPage={setPage}
+            setShowPagination={setShowPagination}
+            disabledButton={disabledButton}
+            setDisabledButton={setDisabledButton}
+            searchBarRef={searchBarRef}
+        />
+    );
 }
 
 export default App;

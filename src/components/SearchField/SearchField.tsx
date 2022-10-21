@@ -35,12 +35,12 @@ function SearchField(props: SearchFieldProps) {
     return (
         <form className={cx('container')} onSubmit={handleSubmit}>
             <input
-                className={cx('searchFeild-input')}
+                className={cx('search-input')}
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 placeholder="Pikachu..."
             />
-            <div className={cx('searchFeild-btn')}>
+            <div className={cx('search-btn')}>
                 <SearchIcon />
             </div>
         </form>
