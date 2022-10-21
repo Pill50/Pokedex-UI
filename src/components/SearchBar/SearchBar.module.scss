@@ -1,5 +1,7 @@
 .container {
-    width: 100%;
+    max-width: 1200px;
     display: flex;
     justify-content: space-between;
+    padding: 20px 0;
+    border-bottom: 1px solid #333;
 }

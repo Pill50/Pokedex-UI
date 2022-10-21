@@ -21,19 +21,19 @@ type SearchBarProps = {
 
 function SearchBar(props: SearchBarProps) {
     return (
-        <div className={cx('container')}>
+        <div className={cx('container')} ref={props.searchBarRef}>
             <HomeButton
                 setPokemonList={props.setPokemonList}
                 setLoading={props.setLoading}
                 setPage={props.setPage}
                 setShowPagination={props.setShowPagination}
             />
-            <SearchFilter />
             <SearchField
                 setPokemonList={props.setPokemonList}
                 setError={props.setError}
                 setLoading={props.setLoading}
             />
+            <SearchFilter />
         </div>
     );
 }

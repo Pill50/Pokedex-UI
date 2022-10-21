@@ -1,13 +1,21 @@
-import React, { useEffect, useState, useRef } from 'react';
-import './App.css';
+import { useEffect, useState, useRef } from 'react';
 import { Pokemon } from './types/Pokemons';
 
 import SearchBar from './components/SearchBar/SearchBar';
 import { fetchPokemonList } from './api/fetchPokemonList';
+import Header from './layouts/Header/Header';
+
+import classNames from 'classnames/bind';
+import styles from './App.module.scss';
+import { Pokedex } from './components/Pokedex/Pokedex';
+
+const cx = classNames.bind(styles);
 
 function App() {
+    const [modal, setModal] = useState(false);
     const [pokemonData, setPokemonData] = useState<Pokemon>();
     const [pokemonList, setPokemonList] = useState<Pokemon[]>();
+    const [pokemonAmount, setPokemonAmount] = useState(9);
     const [error, setError] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
     const [page, setPage] = useState(1);
@@ -29,16 +37,36 @@ function App() {
     }, [pokemonList]);
 
     return (
-        <SearchBar
-            setPokemonList={setPokemonList}
-            setError={setError}
-            setLoading={setLoading}
-            setPage={setPage}
-            setShowPagination={setShowPagination}
-            disabledButton={disabledButton}
-            setDisabledButton={setDisabledButton}
-            searchBarRef={searchBarRef}
-        />
+        <div className={cx('container')}>
+            <Header />
+            <SearchBar
+                setPokemonList={setPokemonList}
+                setError={setError}
+                setLoading={setLoading}
+                setPage={setPage}
+                setShowPagination={setShowPagination}
+                disabledButton={disabledButton}
+                setDisabledButton={setDisabledButton}
+                searchBarRef={searchBarRef}
+            />
+            <Pokedex
+                setModal={setModal}
+                setPokemonData={setPokemonData}
+                pokemonList={pokemonList}
+                setPokemonList={setPokemonList}
+                pokemonAmount={pokemonAmount}
+                setPokemonAmount={setPokemonAmount}
+                error={error}
+                loading={loading}
+                setLoading={setLoading}
+                page={page}
+                setPage={setPage}
+                showPagination={showPagination}
+                setShowPagination={setShowPagination}
+                searchBarRef={searchBarRef}
+                disabledButton={disabledButton}
+            />
+        </div>
     );
 }
 
