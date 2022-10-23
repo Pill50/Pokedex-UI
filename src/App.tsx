@@ -4,7 +4,8 @@ import { Pokemon } from './types/Pokemons';
 import SearchBar from './components/SearchBar/SearchBar';
 import { fetchPokemonList } from './api/fetchPokemonList';
 import Header from './layouts/Header/Header';
-
+import Footer from './layouts/Footer/Footer';
+import { PokemonModal } from './components/PokemonModal';
 import classNames from 'classnames/bind';
 import styles from './App.module.scss';
 import { Pokedex } from './components/Pokedex/Pokedex';
@@ -43,6 +44,8 @@ function App() {
                 setPokemonList={setPokemonList}
                 setError={setError}
                 setLoading={setLoading}
+                pokemonAmount={pokemonAmount}
+                setPokemonAmount={setPokemonAmount}
                 setPage={setPage}
                 setShowPagination={setShowPagination}
                 disabledButton={disabledButton}
@@ -66,6 +69,8 @@ function App() {
                 searchBarRef={searchBarRef}
                 disabledButton={disabledButton}
             />
+            <Footer />
+            {pokemonData && modal && <PokemonModal setModal={setModal} pokemonData={pokemonData} />}
         </div>
     );
 }

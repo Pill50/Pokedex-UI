@@ -1,7 +1,11 @@
 .container {
-    max-width: 1200px;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     padding: 20px 0;
     border-bottom: 1px solid #333;
+
+    @media (max-width: 40.94rem) {
+        flex-direction: column;
+    }
 }

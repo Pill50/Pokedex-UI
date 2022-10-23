@@ -1,17 +1,18 @@
 .container {
-    //     grid-area: SearchField;
     justify-self: end;
     width: 30.5rem;
     height: 3.5rem;
     display: flex;
     border-radius: 0.5rem;
     transition: 0.4s;
+    margin-left: 12px;
 
     &:hover {
         box-shadow: 0px 0px 0px 4px rgba(47, 90, 255, 0.4);
     }
 
-    @media (max-width: 65.63rem) {
+    @media (max-width: 40.94rem) {
+        margin: 8px 0;
         width: 100%;
     }
 }

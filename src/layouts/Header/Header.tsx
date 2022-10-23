@@ -1,7 +1,6 @@
 import { ReactComponent as PokemonLogo } from '../../assets/images/logo-pokemon.svg';
 import { ReactComponent as LinkedinLogo } from '../../assets/images/logo-linkedin.svg';
 import { ReactComponent as GithubLogo } from '../../assets/images/logo-github.svg';
-import { ReactComponent as TelegramLogo } from '../../assets/images/logo-telegram.svg';
 
 import classNames from 'classnames/bind';
 import styles from './Header.module.scss';
@@ -13,14 +12,11 @@ function Header() {
         <div className={cx('container')}>
             <PokemonLogo />
             <div className={cx('contact')}>
-                <a href="#">
+                <a href="https://linkedin.com/in/tvphuc13" target="_blank" rel="noreferrer">
                     <LinkedinLogo />
                 </a>
-                <a href="#">
+                <a href="https://github.com/Pill50" target="_blank" rel="noreferrer">
                     <GithubLogo />
-                </a>
-                <a href="#">
-                    <TelegramLogo />
                 </a>
             </div>
         </div>

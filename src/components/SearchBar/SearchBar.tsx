@@ -4,7 +4,7 @@ import styles from './SearchBar.module.scss';
 import { Pokemon } from '../../types/Pokemons';
 import SearchField from '../SearchField/SearchField';
 import HomeButton from '../HomeButton/HomeButton';
-import SearchFilter from '../SearchFilter/SearchFilter';
+import { SearchFilter } from '../SearchFilter/SearchFilter';
 
 const cx = className.bind(styles);
 
@@ -14,6 +14,8 @@ type SearchBarProps = {
     setLoading: (value: boolean) => void;
     setPage: (value: number) => void;
     setShowPagination: (value: boolean) => void;
+    pokemonAmount: number;
+    setPokemonAmount: (value: number) => void;
     disabledButton: boolean;
     setDisabledButton: (value: boolean) => void;
     searchBarRef: React.MutableRefObject<HTMLDivElement | null>;
@@ -33,7 +35,14 @@ function SearchBar(props: SearchBarProps) {
                 setError={props.setError}
                 setLoading={props.setLoading}
             />
-            <SearchFilter />
+            <SearchFilter
+                setPokemonList={props.setPokemonList}
+                pokemonAmount={props.pokemonAmount}
+                setPokemonAmount={props.setPokemonAmount}
+                setLoading={props.setLoading}
+                setShowPagination={props.setShowPagination}
+                setDisabledButton={props.setDisabledButton}
+            />
         </div>
     );
 }

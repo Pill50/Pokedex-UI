@@ -1,16 +1,51 @@
-import className from 'classnames/bind';
-import styles from './SearchFilter.module.scss';
+import * as C from './style';
+import { SyntheticEvent, useEffect, useState } from 'react';
+import { fetchPokemonByType } from '../../api/fetchPokemonByType';
+import { PokemonType } from '../PokemonType/PokemonType';
+import { pokemonTypes } from '../../pokemonTypes';
+import { Pokemon } from '../../types/Pokemons';
 
-const cx = className.bind(styles);
+type SearchFilterProps = {
+    setPokemonList: (data: Pokemon[]) => void;
+    pokemonAmount: number;
+    setPokemonAmount: (value: number) => void;
+    setLoading: (value: boolean) => void;
+    setShowPagination: (value: boolean) => void;
+    setDisabledButton: (value: boolean) => void;
+};
 
-type SearchFilterProps = {};
+export const SearchFilter = (props: SearchFilterProps) => {
+    const [selectedType, setSelectedType] = useState('');
 
-function SearchFilter(props: SearchFilterProps) {
+    const handleClick = async (e: SyntheticEvent) => {
+        const typeName = (e.currentTarget as HTMLButtonElement).value;
+        setSelectedType(typeName);
+        props.setPokemonAmount(9);
+        props.setLoading(true);
+        props.setPokemonList(await fetchPokemonByType(typeName));
+        props.setLoading(false);
+        props.setShowPagination(false);
+    };
+
+    useEffect(() => {
+        if (selectedType) {
+            (async () => {
+                props.setDisabledButton(true);
+                props.setPokemonList(await fetchPokemonByType(selectedType, props.pokemonAmount));
+                props.setDisabledButton(false);
+            })();
+        }
+    }, [props.pokemonAmount]);
+
     return (
-        <div className={cx('container')}>
-            <h2 className={cx('title')}>Search from properties</h2>
-        </div>
+        <C.Container>
+            <C.Select onChange={handleClick}>
+                {pokemonTypes.map(({ name }) => (
+                    <C.Option>
+                        <PokemonType key={name} type={name} tabIndex={true} />
+                    </C.Option>
+                ))}
+            </C.Select>
+        </C.Container>
     );
-}
-
-export default SearchFilter;
+};
